@@ -5,7 +5,7 @@ spring:
   application:
     name: api-gateway
 
-cloud:
+  cloud:
     gateway:
       routes:
         - id: user_service
@@ -15,7 +15,7 @@ cloud:
           filters:
             - StripPrefix=1
 
-        - id: user_service
+        - id: auth_service
           uri: lb://AUTH-SERVICE
           predicates:
             - Path=/api/auth/**
@@ -28,3 +28,8 @@ cloud:
             - Path=/api/employees/**
           filters:
             - StripPrefix=1
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
